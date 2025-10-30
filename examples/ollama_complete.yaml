@@ -1,0 +1,222 @@
+# Complete Ollama Configuration Example
+# This example shows a comprehensive Ollama setup for local models,
+# including various model types and configurations for different use cases.
+
+default_profile: "local"
+
+models:
+  # Llama 3 Models
+  llama3:
+    provider: ollama
+    model: llama3
+    metadata:
+      reasoning: high
+      cost: free
+      speed: medium
+      capabilities: [chat, completion]
+      context_length: 8192
+      multimodal: false
+      local: true
+      description: "Meta's Llama 3 model, excellent for general tasks"
+    parameters:
+      temperature: 0.7
+      num_predict: 2048
+
+  llama3:70b:
+    provider: ollama
+    model: llama3:70b
+    metadata:
+      reasoning: high
+      cost: free
+      speed: slow
+      capabilities: [chat, completion]
+      context_length: 8192
+      multimodal: false
+      local: true
+      description: "Larger Llama 3 model with better reasoning"
+    parameters:
+      temperature: 0.7
+      num_predict: 2048
+
+  # Code-specialized models
+  codellama:
+    provider: ollama
+    model: codellama
+    metadata:
+      reasoning: medium
+      cost: free
+      speed: medium
+      capabilities: [chat, completion, code]
+      context_length: 16384
+      multimodal: false
+      local: true
+      description: "Code-specialized Llama model"
+    parameters:
+      temperature: 0.1
+      num_predict: 2048
+
+  codellama:34b:
+    provider: ollama
+    model: codellama:34b
+    metadata:
+      reasoning: high
+      cost: free
+      speed: slow
+      capabilities: [chat, completion, code]
+      context_length: 16384
+      multimodal: false
+      local: true
+      description: "Larger code-specialized model"
+    parameters:
+      temperature: 0.1
+      num_predict: 2048
+
+  # Fast and efficient models
+  phi3:
+    provider: ollama
+    model: phi3
+    metadata:
+      reasoning: medium
+      cost: free
+      speed: fast
+      capabilities: [chat, completion]
+      context_length: 4096
+      multimodal: false
+      local: true
+      description: "Microsoft's efficient Phi-3 model"
+    parameters:
+      temperature: 0.7
+      num_predict: 1024
+
+  mistral:
+    provider: ollama
+    model: mistral
+    metadata:
+      reasoning: medium
+      cost: free
+      speed: fast
+      capabilities: [chat, completion]
+      context_length: 8192
+      multimodal: false
+      local: true
+      description: "Mistral AI's efficient model"
+    parameters:
+      temperature: 0.7
+      num_predict: 2048
+
+  # Multimodal models
+  llava:
+    provider: ollama
+    model: llava
+    metadata:
+      reasoning: medium
+      cost: free
+      speed: medium
+      capabilities: [chat, completion, vision]
+      context_length: 4096
+      multimodal: true
+      local: true
+      description: "Vision-capable Llama model"
+    parameters:
+      temperature: 0.7
+      num_predict: 1024
+
+  # Specialized models
+  gemma:
+    provider: ollama
+    model: gemma
+    metadata:
+      reasoning: medium
+      cost: free
+      speed: fast
+      capabilities: [chat, completion]
+      context_length: 8192
+      multimodal: false
+      local: true
+      description: "Google's Gemma model"
+    parameters:
+      temperature: 0.7
+      num_predict: 2048
+
+providers:
+  ollama:
+    base_url: http://localhost:11434
+    timeout: 120
+    headers:
+      Content-Type: application/json
+
+profiles:
+  # Local development profile
+  local:
+    model: llama3
+    parameters:
+      temperature: 0.7
+      num_predict: 1024
+
+  # Code development profile
+  code:
+    model: codellama
+    parameters:
+      temperature: 0.1
+      num_predict: 2048
+
+  # Fast prototyping profile
+  fast:
+    model: phi3
+    parameters:
+      temperature: 0.7
+      num_predict: 1024
+
+  # High-quality reasoning profile
+  reasoning:
+    model: llama3:70b
+    parameters:
+      temperature: 0.3
+      num_predict: 2048
+
+  # Vision tasks profile
+  vision:
+    model: llava
+    parameters:
+      temperature: 0.5
+      num_predict: 1024
+
+  # Creative writing profile
+  creative:
+    model: llama3
+    parameters:
+      temperature: 0.9
+      num_predict: 2048
+
+  # Efficient profile for resource-constrained environments
+  efficient:
+    model: phi3
+    parameters:
+      temperature: 0.7
+      num_predict: 512
+
+aliases:
+  # Size-based aliases
+  small: phi3
+  medium: llama3
+  large: llama3:70b
+  
+  # Task-based aliases
+  coder: codellama
+  writer: llama3
+  viewer: llava
+  
+  # Performance aliases
+  fastest: phi3
+  balanced: llama3
+  powerful: llama3:70b
+  
+  # Environment aliases
+  dev: fast
+  test: local
+  prod: reasoning
+  
+  # Fallback chain
+  primary: llama3
+  secondary: mistral
+  fallback: phi3

@@ -1,0 +1,169 @@
+# Complete Anthropic Configuration Example
+# This example shows a comprehensive Anthropic Claude setup with multiple models,
+# profiles for different use cases, and rich metadata for intent resolution.
+
+default_profile: "balanced"
+
+models:
+  # Claude 3 Models with full model names
+  claude-3-opus-20240229:
+    provider: anthropic
+    model: claude-3-opus-20240229
+    metadata:
+      reasoning: high
+      cost: high
+      speed: slow
+      capabilities: [chat, completion, vision]
+      context_length: 200000
+      multimodal: true
+      description: "Most capable Claude model for complex tasks"
+    parameters:
+      temperature: 0.7
+      max_tokens: 4096
+
+  claude-3-sonnet-20240229:
+    provider: anthropic
+    model: claude-3-sonnet-20240229
+    metadata:
+      reasoning: high
+      cost: medium
+      speed: medium
+      capabilities: [chat, completion, vision]
+      context_length: 200000
+      multimodal: true
+      description: "Balanced performance and cost"
+    parameters:
+      temperature: 0.7
+      max_tokens: 4096
+
+  claude-3-haiku-20240307:
+    provider: anthropic
+    model: claude-3-haiku-20240307
+    metadata:
+      reasoning: medium
+      cost: low
+      speed: fast
+      capabilities: [chat, completion, vision]
+      context_length: 200000
+      multimodal: true
+      description: "Fast and cost-effective Claude model"
+    parameters:
+      temperature: 0.7
+      max_tokens: 2048
+
+  # Convenience aliases for easier reference
+  claude-3-opus:
+    provider: anthropic
+    model: claude-3-opus-20240229
+    metadata:
+      reasoning: high
+      cost: high
+      speed: slow
+      capabilities: [chat, completion, vision]
+      context_length: 200000
+      multimodal: true
+      description: "Most capable Claude model (alias)"
+    parameters:
+      temperature: 0.7
+      max_tokens: 4096
+
+  claude-3-sonnet:
+    provider: anthropic
+    model: claude-3-sonnet-20240229
+    metadata:
+      reasoning: high
+      cost: medium
+      speed: medium
+      capabilities: [chat, completion, vision]
+      context_length: 200000
+      multimodal: true
+      description: "Balanced Claude model (alias)"
+    parameters:
+      temperature: 0.7
+      max_tokens: 4096
+
+  claude-3-haiku:
+    provider: anthropic
+    model: claude-3-haiku-20240307
+    metadata:
+      reasoning: medium
+      cost: low
+      speed: fast
+      capabilities: [chat, completion, vision]
+      context_length: 200000
+      multimodal: true
+      description: "Fast Claude model (alias)"
+    parameters:
+      temperature: 0.7
+      max_tokens: 2048
+
+providers:
+  anthropic:
+    base_url: https://api.anthropic.com
+    timeout: 60
+    headers:
+      x-api-key: "${ANTHROPIC_API_KEY}"
+      Content-Type: application/json
+      anthropic-version: "2023-06-01"
+
+profiles:
+  # Fast profile for quick tasks
+  fast:
+    model: claude-3-haiku
+    parameters:
+      temperature: 0.3
+      max_tokens: 1024
+
+  # Balanced profile for most tasks
+  balanced:
+    model: claude-3-sonnet
+    parameters:
+      temperature: 0.7
+      max_tokens: 2048
+
+  # Powerful profile for complex reasoning
+  powerful:
+    model: claude-3-opus
+    parameters:
+      temperature: 0.7
+      max_tokens: 4096
+
+  # Creative writing profile
+  creative:
+    model: claude-3-opus
+    parameters:
+      temperature: 0.9
+      max_tokens: 4096
+
+  # Analysis profile for detailed work
+  analysis:
+    model: claude-3-opus
+    parameters:
+      temperature: 0.3
+      max_tokens: 4096
+
+  # Vision profile for multimodal tasks
+  vision:
+    model: claude-3-sonnet
+    parameters:
+      temperature: 0.5
+      max_tokens: 2048
+
+aliases:
+  # Performance aliases
+  fastest: claude-3-haiku
+  best: claude-3-opus
+  
+  # Task aliases
+  writer: creative
+  researcher: analysis
+  viewer: vision
+  
+  # Environment aliases
+  dev: fast
+  prod: balanced
+  
+  # Fallback chain
+  primary: claude-3-sonnet
+  secondary: claude-3-haiku
+  emergency: claude-3-haiku

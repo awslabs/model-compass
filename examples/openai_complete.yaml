@@ -1,0 +1,145 @@
+# Complete OpenAI Configuration Example
+# This example shows a comprehensive OpenAI setup with multiple models,
+# profiles for different environments, and rich metadata for intent resolution.
+
+default_profile: "production"
+
+models:
+  # GPT-4 Models
+  gpt-4:
+    provider: openai
+    model: gpt-4
+    metadata:
+      reasoning: high
+      cost: high
+      speed: medium
+      capabilities: [chat, completion, function_calling]
+      context_length: 8192
+      multimodal: false
+      description: "Most capable GPT-4 model, excellent for complex reasoning"
+    parameters:
+      temperature: 0.7
+      max_tokens: 2048
+      top_p: 1.0
+      frequency_penalty: 0.0
+      presence_penalty: 0.0
+
+  gpt-4-turbo:
+    provider: openai
+    model: gpt-4-turbo
+    metadata:
+      reasoning: high
+      cost: medium
+      speed: fast
+      capabilities: [chat, completion, function_calling, vision]
+      context_length: 128000
+      multimodal: true
+      description: "Latest GPT-4 Turbo with improved speed and larger context"
+    parameters:
+      temperature: 0.7
+      max_tokens: 4096
+
+  gpt-4o:
+    provider: openai
+    model: gpt-4o
+    metadata:
+      reasoning: high
+      cost: medium
+      speed: fast
+      capabilities: [chat, completion, function_calling, vision]
+      context_length: 128000
+      multimodal: true
+      description: "GPT-4 Omni with multimodal capabilities"
+    parameters:
+      temperature: 0.7
+      max_tokens: 4096
+
+  # GPT-3.5 Models
+  gpt-3.5-turbo:
+    provider: openai
+    model: gpt-3.5-turbo
+    metadata:
+      reasoning: medium
+      cost: low
+      speed: fast
+      capabilities: [chat, completion, function_calling]
+      context_length: 16385
+      multimodal: false
+      description: "Fast and cost-effective for most tasks"
+    parameters:
+      temperature: 0.7
+      max_tokens: 2048
+
+providers:
+  openai:
+    base_url: https://api.openai.com/v1
+    timeout: 30
+    headers:
+      Authorization: "Bearer ${OPENAI_API_KEY}"
+      Content-Type: application/json
+
+profiles:
+  # Development profile - fast and cheap
+  development:
+    model: gpt-3.5-turbo
+    parameters:
+      temperature: 0.9
+      max_tokens: 1024
+
+  # Staging profile - balanced performance
+  staging:
+    model: gpt-4-turbo
+    parameters:
+      temperature: 0.5
+      max_tokens: 2048
+
+  # Production profile - best quality
+  production:
+    model: gpt-4
+    parameters:
+      temperature: 0.1
+      max_tokens: 2048
+
+  # Creative writing profile
+  creative:
+    model: gpt-4
+    parameters:
+      temperature: 0.9
+      max_tokens: 4096
+      top_p: 0.9
+
+  # Code generation profile
+  coding:
+    model: gpt-4-turbo
+    parameters:
+      temperature: 0.1
+      max_tokens: 4096
+      top_p: 0.95
+
+  # Analysis profile for complex reasoning
+  analysis:
+    model: gpt-4
+    parameters:
+      temperature: 0.3
+      max_tokens: 4096
+
+aliases:
+  # Environment aliases
+  dev: development
+  stage: staging
+  prod: production
+  
+  # Task-specific aliases
+  writer: creative
+  coder: coding
+  analyst: analysis
+  
+  # Model aliases
+  smart: gpt-4
+  fast: gpt-3.5-turbo
+  vision: gpt-4o
+  
+  # Fallback chain
+  primary: gpt-4
+  secondary: gpt-4-turbo
+  fallback: gpt-3.5-turbo
