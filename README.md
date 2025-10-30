@@ -10,7 +10,7 @@ A lightweight, provider-agnostic Python library for LLM configuration and access
 - **⚡ Performance Optimized**: Built-in caching and lazy loading for optimal performance
 - **🔧 Provider Agnostic**: Works with OpenAI, Anthropic, Ollama, and custom providers
 - **🛡️ Type Safe**: Full type hints and comprehensive error handling
-- **🧪 Well Tested**: 100+ tests ensuring reliability
+- **🧪 Well Tested**: 90+ tests ensuring reliability
 
 ## Quick Start
 
