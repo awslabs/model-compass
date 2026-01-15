@@ -9,8 +9,8 @@ This guide covers best practices for deploying Model Compass in different enviro
 #### Local Development Setup
 
 ```bash
-# Install Model Compass
-pip install model-compass
+# Install Model Compass from source
+pip install git+https://github.com/awslabs/model-compass.git
 
 # Create development configuration
 mkdir -p configs
