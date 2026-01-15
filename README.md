@@ -17,7 +17,13 @@ A lightweight, provider-agnostic Python library for LLM configuration and access
 ### Installation
 
 ```bash
-pip install model-compass
+# Install from source (recommended)
+pip install git+https://github.com/awslabs/model-compass.git
+
+# Or clone and install locally
+git clone https://github.com/awslabs/model-compass.git
+cd model-compass
+pip install -e .
 ```
 
 ### Basic Usage

@@ -212,7 +212,13 @@ print(f"Configuration cache hit rate: {stats.get('configuration_cache', {}).get(
 
 1. Install Model Compass:
    ```bash
-   pip install model-compass
+   # Install from source (recommended)
+   pip install git+https://github.com/awslabs/model-compass.git
+   
+   # Or clone and install locally
+   git clone https://github.com/awslabs/model-compass.git
+   cd model-compass
+   pip install -e .
    ```
 
 2. Set up API keys (for cloud providers):
